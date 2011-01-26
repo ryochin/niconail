@@ -1,0 +1,30 @@
+# 
+
+# dir
+logs/
+
+# bin
+#bin/boot_provider_test.sh
+
+# service
+service/run
+
+# var
+var/config.yml.dist
+var/ipaexg.ttf
+var/index.html
+
+var/frame_base.png
+
+
+# htdocs
+
+# app
+app/niconail.psgi
+
+# lib - base
+lib/Niconail/Process.pm
+
+# script
+
+# EOF

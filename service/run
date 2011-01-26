@@ -1,0 +1,25 @@
+#!/bin/sh
+# 
+
+PROJECT_HOME=/project/niconail
+HOST=0
+PORT=8450
+WORKER=10
+
+RUN_USER=ryo
+RUN_GROUP=www
+
+exec \
+env - \
+    /bin/nice -5 \
+    /usr/local/bin/setuidgid ${RUN_USER} \
+    /usr/local/bin/starman \
+	--listen ${HOST}:${PORT} \
+	--workers ${WORKER} \
+	--max-requests 200 \
+	--user ${RUN_USER} \
+	--group ${RUN_GROUP} \
+	-I${PROJECT_HOME}/lib \
+	${PROJECT_HOME}/app/niconail.psgi \
+2>&1
+

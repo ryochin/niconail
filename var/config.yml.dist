@@ -1,0 +1,5 @@
+project_base: /project/niconail
+server_domain: niconail.miku39.org
+memcached_server: 127.0.0.1:11211
+font_filename: ipaexg.ttf
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html lang="ja-JP" xml:lang="ja-JP" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rev="made" href="mailto:info&#64;fumi2.jp" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Language" content="ja" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<title>Niconail Clone</title>
+<style type="text/css">
+/* <![CDATA[ */ 
+
+body {
+	color: #333333;
+	background-color: white;
+}
+
+h1 {
+	font-color: #3380a3;
+	margin-left: 1em;
+	font-size: 148%;
+}
+
+input {
+	margin: 4px;
+	padding: 4px;
+}
+
+input.id {
+	background: #eeeeff;
+}
+
+input.result {
+	background: #eeeeee;
+}
+
+p {
+	margin: 1em;
+}
+
+/* ]]> */
+</style>
+
+</head>
+<body>
+
+<div id="container">
+	
+	<h1>Niconail クローン</h1>
+	
+	<form action="/" method="post">
+	
+	<p>
+		&nbsp; アドレスまたは動画番号： <br />
+		<input type="text" name="id" value="[% id %]" size="48" class="id" />
+		<input type="submit" value="　作る！　" />
+	</p>
+	
+	</form>
+	
+	<hr />
+	
+[%- IF id %]
+	
+	<p>
+	  <img src="/[% id %]" title="[% id %]" />
+	</p>
+	
+	<p>
+		<input type="text" value="&lt;img src=&quot;http://niconail.miku39.org/[% id %]&quot; alt=&quot;thumbnail of [% id %]&quot; /&gt;" class="result" size="80" />
+	</p>
+	
+	<hr />
+	
+[%- END %]
+	
+	<ul>
+		<li>今は無き niconail.info のオレオレクローンです。</li>
+		<li>試験運用中です。一般公開して本運用するかどうかは未定です。</li>
+		<li>表示のされかたなどはたぶん変更されます。サイズは変わらない予定です。</li>
+		<li>負荷分散のためのミラーサーバを運用したいという方をお待ちしています。</li>
+		<li>連絡は &#64;ryochin までどうぞ。</li>
+	</p>
+</div>
+
+</body>
+</html>
