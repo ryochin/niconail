@@ -15,6 +15,10 @@ var/ipaexg.ttf
 var/index.html
 
 var/frame_base.png
+var/frame_cannot_play.png
+var/frame_deleted.png
+var/frame_failed_to_retrieve.png
+var/frame_not_found.png
 
 # htdocs
 htdocs/robots.txt

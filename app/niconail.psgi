@@ -63,9 +63,11 @@ my $app = sub {
 	# create
 	my $content = $nico->create_thumbnail;
 	
+	my $failed = 0;
 	if( defined $nico->errstr ){
 		if( $nico->errstr eq 'FAILED_TO_RETRIEVE' ){
 			$content = file( $var_dir, "frame_failed_to_retrieve.png" )->slurp or die $!;
+			$failed = 1;
 		}
 		elsif( $nico->errstr eq 'NOT_FOUND' ){
 			$content = file( $var_dir, "frame_not_found.png" )->slurp or die $!;
@@ -79,7 +81,7 @@ my $app = sub {
 	}
 	
 	# メモリに入れる
-	$memd->set( $key, $content, $cache_expire );
+	$memd->set( $key, $content, $failed ? 10 * 60 : $cache_expire );
 	
 	# 返す
 	return prepare_response( $content );
