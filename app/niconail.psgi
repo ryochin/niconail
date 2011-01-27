@@ -39,7 +39,7 @@ my $app = sub {
 	}
 	
 	# トップページ
-	if( $id !~ qr/^(sm|nm|co)[0-9]+$/o ){
+	if( $id !~ qr/^(sm|nm|so)[0-9]+$/o ){
 		return process_index( $req );
 	}
 	
@@ -101,7 +101,7 @@ sub process_index {
 	
 	my $id;
 	if( defined( $id =  $req->param('id') ) ){
-		$id =~ s{^.*((sm|nm|co)[0-9]+?)$}{$1}o;
+		$id =~ s{^.*((sm|nm|so)[0-9]+?)$}{$1}o;
 	}
 	else{
 		$id = "sm9";
