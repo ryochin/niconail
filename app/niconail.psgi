@@ -21,8 +21,8 @@ use Encode ();
 
 my $config = YAML::LoadFile("/project/niconail/var/config.yml") or die $!;
 
-#my $expire = 6 * 60 ** 2;    # 6 hrs
-my $expire = 30;    # test
+my $cache_expire = 6 * 60 ** 2;    # 6 hrs
+my $http_expire = int( $cache_expire / 2 );
 
 my $var_dir = dir( $config->{project_base}, "var" );
 my $font_file_normal = file( $var_dir, $config->{font_filename} );
@@ -79,7 +79,7 @@ my $app = sub {
 	}
 	
 	# メモリに入れる
-	$memd->set( $key, $content, $expire );
+	$memd->set( $key, $content, $cache_expire );
 	
 	# 返す
 	return prepare_response( $content );
@@ -95,11 +95,17 @@ sub process_index {
 	);
 	
 	my $stash = {};
+	$stash->{config} = $config;
 	
-	if( defined( my $id =  $req->param('id') ) ){
+	my $id;
+	if( defined( $id =  $req->param('id') ) ){
 		$id =~ s{^.*((sm|nm|co)[0-9]+?)$}{$1}o;
-		$stash->{id} = $id;
 	}
+	else{
+		$id = "sm9";
+	}
+	
+	$stash->{id} = $id;
 	
 	my $res = Plack::Response->new( 200 );
 	$res->content_type("text/html; charset=UTF-8");
@@ -114,7 +120,7 @@ sub prepare_response {
 	my $res = Plack::Response->new( 200 );
 	$res->content_type("image/png");
 	$res->headers( [ "Cache-Control" => "private" ] );
-	$res->headers( [ "Expires" => HTTP::Date::time2str( time() + $expire ) ] );
+	$res->headers( [ "Expires" => HTTP::Date::time2str( time() + $http_expire ) ] );
 	$res->body( $content );
 	
 	return $res->finalize;

@@ -3,6 +3,7 @@
 PROJECT = niconail
 BASE = /project/$(PROJECT)
 
+NICE = /bin/nice -10
 PERL = /usr/bin/perl -I$(BASE)/lib -I$(BASE)/extlib
 
 install::

@@ -40,6 +40,25 @@ p {
 	margin: 1em;
 }
 
+p.webmoney {
+	margin-left: 3em;
+}
+
+img {
+	border: 0;
+}
+
+ul {
+	margin: 8px 2px;
+}
+
+li {
+	color: #666;
+}
+li strong {
+	color: #aa6666;
+}
+
 /* ]]> */
 </style>
 
@@ -65,11 +84,13 @@ p {
 [%- IF id %]
 	
 	<p>
-	  <img src="/[% id %]" title="[% id %]" />
+		<a href="http://www.nicovideo.jp/watch/[% id %]" target="_blank">
+			<img src="/[% id %]" title="[% id %]" />
+		</a>
 	</p>
 	
 	<p>
-		<input type="text" value="&lt;img src=&quot;http://niconail.miku39.org/[% id %]&quot; alt=&quot;thumbnail of [% id %]&quot; /&gt;" class="result" size="80" />
+		<input type="text" value="&lt;img src=&quot;http://[% config.server_domain %]/[% id %]&quot; alt=&quot;ニコニコ動画のサムネイル画像&quot; /&gt;" class="result" size="80" />
 	</p>
 	
 	<hr />
@@ -78,11 +99,25 @@ p {
 	
 	<ul>
 		<li>今は無き niconail.info のオレオレクローンです。</li>
-		<li>試験運用中です。一般公開して本運用するかどうかは未定です。</li>
-		<li>表示のされかたなどはたぶん変更されます。サイズは変わらない予定です。</li>
-		<li>負荷分散のためのミラーサーバを運用したいという方をお待ちしています。</li>
+		<li>ただいま<strong>試験運用中</strong>です。一般公開して本格運用するかどうかはまだ未定です。</li>
+		<li>表示のされかたなどはたぶんちょこちょこ修正します（サイズは変わりません）。</li>
+		<li>負荷対策のため、一度作成した画像の内容は数時間は変更されません（＝キャッシュされます）。</li>
+		<li>初回の画像生成の処理は重め（＝遅い）です。</li>
+	</ul>
+	
+	<ul>
+		<li>負荷分散ミラーサーバを運用したいという方をお待ちしています。</li>
 		<li>連絡は &#64;ryochin までどうぞ。</li>
+	</ul>
+	
+[%- MACRO webmoney BLOCK %]
+	<!-- 生放送の延長１回分くらいおごってあげたい太っ腹な方もお待ちしています。 -->
+	<p class="webmoney">
+		<a href="https://service.webmoney.jp/wtw/3802780" target="_blank">
+			<img src="https://www.webmoney.jp/kanpa/btn_kanpa_H3.gif" alt="WebMoney ぷちカンパ" />
+		</a>
 	</p>
+[%- END %]
 </div>
 
 </body>

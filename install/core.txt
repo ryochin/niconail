@@ -16,8 +16,9 @@ var/index.html
 
 var/frame_base.png
 
-
 # htdocs
+htdocs/robots.txt
+htdocs/favicon.ico
 
 # app
 app/niconail.psgi
