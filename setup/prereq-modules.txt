@@ -1,0 +1,33 @@
+# 
+
+### Plack and webserver
+
+Plack
+#Plack::Builder::Conditionals
+Plack::Middleware::Access
+Plack::Middleware::Debug
+Plack::Middleware::ReverseProxy
+Plack::Middleware::Expires
+HTTP::Exception
+Starman
+
+### Application
+
+Any::Moose
+AnyEvent
+AnyEvent::HTTP
+Cache::Memcached::Fast
+Class::ErrorHandler
+DateTime
+DateTime::Format::W3CDTF
+HTTP::Date
+Imager 0.80
+Imager::DTP
+LWP
+namespace::autoclean
+Text::Xslate 1.0000
+Try::Tiny
+XML::Twig
+YAML
+
+# EOF

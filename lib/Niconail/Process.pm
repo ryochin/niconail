@@ -19,6 +19,11 @@ use LWP::UserAgent;
 
 use utf8;
 
+has 'config' => (
+	is => 'rw',
+	isa => 'HashRef',
+);
+
 has 'font_file_normal' => (
 	is => 'rw',
 	isa => 'Path::Class::File',
@@ -142,18 +147,9 @@ extends 'Class::ErrorHandler';
 sub create_thumbnail {
 	my $self = shift;
 	
-	$self->prepare_thumbnail
-		or return;
-
-	return $self->base;
-}
-
-sub prepare_thumbnail {
-	my $self = shift;
-	
 	# 背景を塗っておく
 	$self->base->box( color => 'white', filled => 1 );
-	$self->base->read( file => $self->base_image );
+	$self->base->read( file => $self->base_image, bits => 8 );
 	
 	# image
 	$self->set_image
@@ -187,9 +183,44 @@ sub prepare_thumbnail {
 	# mylist_counter
 	$self->add_mylist_counter;
 	
+	# reduce colors
+	$self->base( $self->base->to_paletted( { make_colors => 'addi', translate => 'perturb' } ) );
+	$self->base( $self->base->to_paletted( { max_colors => 8, translate => 'perturb' } ) );
+	
+	# remove alpha channel
+	$self->base( $self->base->convert( preset => 'noalpha' ) );
+	
 	$self->image_cv->recv;
 	
-	return $self;
+	my $content;
+	if( $self->config->{use_magick_quantize} ){
+		$self->base->write( data => \$content, type => 'png' )
+			or HTTP::Exception::500->throw;
+	}
+	else{
+		require File::Temp;
+		require Image::Magick;
+		
+		my ($fh, $filename) = File::Temp::tempfile( "tempXXXXXX", DIR => "/dev/shm", SUFFIX => "png", UNLINK => 0 );
+		$self->base->write( fh => $fh, type => 'png' )
+			or HTTP::Exception::500->throw;
+		$fh->close;
+		
+		my $i = Image::Magick->new;
+		$i->Read( $filename );
+		$i->Quantize( color => 8 ); 
+		$i->Write( $filename );
+		
+		open my $rfh, $filename
+			or HTTP::Exception::500->throw;
+		
+		$content = do { local $/; <$rfh> };
+		$rfh->close;
+		
+		unlink $filename;
+	}
+	
+	return $content
 }
 
 sub set_image {

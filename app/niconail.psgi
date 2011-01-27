@@ -33,6 +33,10 @@ my $app = sub {
 	my $req = Plack::Request->new( $env );
 	
 	( my $id =  $req->env->{PATH_INFO} ) =~ s{^/+}{}go;
+	my $ignore_cache = 0;
+	if( $id =~ s{\+$}{}o ){
+		$ignore_cache = 1;
+	}
 	
 	# トップページ
 	if( $id !~ qr/^(sm|nm|co)[0-9]+$/o ){
@@ -43,22 +47,22 @@ my $app = sub {
 	my $memd = Cache::Memcached::Fast->new( { servers => [ $config->{memcached_server} ] } );
 	
 	# キャッシュにあるかどうか探す
-	if( my $content = $memd->get( $key ) ){
+	if( ! $ignore_cache and my $content = $memd->get( $key ) ){
 		# あれば返す
 		return prepare_response( $content );
 	}
 	
 	# キャッシュになければ作成を試みる
 	my $nico = Niconail::Process->new;
+	$nico->config( $config );
 	$nico->base_image( file( $var_dir, "frame_base.png" ) );
 	$nico->font_file_normal( $font_file_normal );
 	$nico->font_file_bold( $font_file_bold );
 	$nico->id( $id );
 	
 	# create
-	my $image = $nico->create_thumbnail;
+	my $content = $nico->create_thumbnail;
 	
-	my $content;
 	if( defined $nico->errstr ){
 		if( $nico->errstr eq 'FAILED_TO_RETRIEVE' ){
 			$content = file( $var_dir, "frame_failed_to_retrieve.png" )->slurp or die $!;
@@ -72,10 +76,6 @@ my $app = sub {
 		elsif( $nico->errstr eq 'CANNOT_PLAY' ){
 			$content = file( $var_dir, "frame_cannot_play.png" )->slurp or die $!;
 		}
-	}
-	else{
-		$image->write( data => \$content, type => 'png' )
-			or HTTP::Exception::500->throw;
 	}
 	
 	# メモリに入れる
