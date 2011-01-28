@@ -193,7 +193,7 @@ sub create_thumbnail {
 	$self->image_cv->recv;
 	
 	my $content;
-	if( $self->config->{use_magick_quantize} ){
+	if( not $self->config->{use_magick_quantize} ){
 		$self->base->write( data => \$content, type => 'png' )
 			or HTTP::Exception::500->throw;
 	}
