@@ -2,40 +2,35 @@
 
 use strict;
 use lib qw(lib);
+use Path::Class qw(file);
+use YAML;
+
 use Niconail::Process;
 
 use utf8;
 
 my $id = shift @ARGV // "sm9";
 
+my $config = YAML::LoadFile("./var/config.yml.dist") or die $!;
+
 my $nico = Niconail::Process->new;
-$nico->base_image("./base.png");
-$nico->font_file_normal("./ipaexg.ttf");
-$nico->font_file_bold("./ipaexg.ttf");
-#$nico->font_file_normal("./HiraKakuPro-W3.ttf");
-#$nico->font_file_bold("./HiraKakuPro-W6.ttf");
+$nico->config( $config );
+$nico->base_image( file("./var/frame_base.png") );
+$nico->font_file_normal( file("./var/ipaexg.ttf") );
+$nico->font_file_bold( file("./var/ipaexg.ttf") );
+#$nico->font_file_normal( file("./HiraKakuPro-W3.ttf") );
+#$nico->font_file_bold( file("./HiraKakuPro-W6.ttf") );
 $nico->id( $id );
-my $image = $nico->create_thumbnail;
+
+my $content = $nico->create_thumbnail;
 if( defined $nico->errstr ){
-	warn $nico->errstr;
-	if( $nico->errstr eq 'FAILED_TO_RETRIEVE' ){
-		
-	}
-	elsif( $nico->errstr eq 'NOT_FOUND' ){
-	
-	}
-	elsif( $nico->errstr eq 'DELETED' ){
-	
-	}
-	elsif( $nico->errstr eq 'CANNOT_PLAY' ){
-	
-	}
+	die $nico->errstr;
 }
 else{
-	$image->write( file => 'result.png' )
-		or die $image->errstr;
+	my $fh = file("./result.png")->openw or die $!;
+	$fh->write( $content );
+	$fh->close;
 }
-
 
 __END__
 
