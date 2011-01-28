@@ -2,5 +2,6 @@
 
 User-agent: *
 Crawl-delay: 90
-Disallow: /*
+Disallow: /s*
+Disallow: /n*
 

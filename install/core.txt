@@ -4,7 +4,7 @@
 logs/
 
 # bin
-#bin/boot_provider_test.sh
+bin/boot_test_server.sh
 
 # service
 service/run
