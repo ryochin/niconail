@@ -1,0 +1,10 @@
+# 
+
+/project/niconail/logs/backend.log {
+    size 10M
+    rotate 10
+    copytruncate
+    compress
+    notifempty
+    missingok
+}
