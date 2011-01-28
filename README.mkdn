@@ -1,0 +1,84 @@
+Niconail Clone
+==============
+
+About
+-----
+
+This is a one of Niconail.info service clone, NicoNicoDouga
+Video Thumbnail Image Generator.
+
+Now the site [http://niconail.in/](http://niconail.in/) is running.
+
+Requirement
+-----------
+
+* Perl and some related modules
+ * Imager
+ * Plack
+ * Text::Xslate
+ * Any::Moose
+ * AE::HTTP
+ * DateTime
+ * etc.
+* C compiler
+* Memcached (or alternatives)
+* libpng library
+* freetype2 library
+* ImageMagick with Perl bridge (optional)
+
+Install
+-------
+
+First, you need to install dependency like (an example for CentOS):
+
+    > sudo yum install libpng
+    > sudo yum install libpng-devel
+    > sudo yum install freetype
+    > sudo yum install freetype-devel
+
+and Perl modules (C compiler required):
+
+    > sudo cpan Path::Class
+    > sudo perl ./setup/install_module.pl
+
+also retreive & place IPAex font file:
+
+    > cd ./var/
+    > wget http://ossipedia.ipa.go.jp/ipafont/ipaexg00102.php
+    > unzip ipaexg00102.zip
+    > mv ipaexg00102/ipaexg00102/ipaexg.ttf .
+
+then run the server:
+
+    > ./bin/boot_test_server.sh
+
+Browse it:
+
+> http://localhost:8450/
+
+The default installation directory is "/project/niconail".
+Install all files:
+
+    > make install
+
+Consider using Starman for production use, Corona/Twiggy may cause problem.
+
+If you are a heavy djb fan, you'd be interested in ./service/.
+
+TODO
+----
+
+* More efficient PNG color reduce
+* Add video image (+frame) cache mechanism
+* Refactoring
+
+Auther
+------
+
+Ryo Okamoto a.k.a. @ryochin
+
+License
+-------
+
+This software is distributed under Apache License 2.0.
+

@@ -10,4 +10,8 @@ install::
 	$(NICE) $(PERL) install/installer.pl -q
 	chmod 755 $(BASE)/service/run > /dev/null 2>&1
 
+readme-to-html:
+	echo "<html>" > README.html
+	cat README.mkdn | Markdown.pl >> README.html
+
 # EOF
