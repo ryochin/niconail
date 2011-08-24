@@ -677,14 +677,14 @@ sub set_video_info {
 	}
 	
 	$self->first_retrieve( $info->{first_retrieve} );
-	$self->title( $info->{title} );
-	$self->description( $info->{description} );
+	$self->title( ( defined $info->{title} and $info->{title} ne '' ) ? $info->{title} : "（タイトルなし）" );
+	$self->description( ( defined $info->{description} and $info->{description} ne '' ) ? $info->{description} : "（説明文なし）" );
 	$self->video_length( $info->{length} );
 	$self->view_counter( $info->{view_counter} );
 	$self->comment_num( $info->{comment_num} );
 	$self->mylist_counter( $info->{mylist_counter} );
 
-	$self->comment( $info->{last_res_body} );
+	$self->comment( ( defined $info->{last_res_body} and $info->{last_res_body} ne '' ) ? $info->{last_res_body} : "（コメントなし）" );
 
 	return $self;
 }
