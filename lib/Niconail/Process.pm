@@ -19,6 +19,8 @@ use Furl;
 
 use utf8;
 
+my $timeout = 10;    # sec
+
 has 'config' => (
 	is => 'rw',
 	isa => 'HashRef',
@@ -231,7 +233,7 @@ sub set_image {
 	
 	$self->image_cv( AnyEvent->condvar );
 	
-	my $guard; $guard = http_get $url, timeout => 5, sub {
+	my $guard; $guard = http_get $url, timeout => $timeout, sub {
 		my ($content, $header) = @_;
 		undef $guard;
 		
@@ -616,7 +618,7 @@ sub set_video_info {
 	
 	my $info_url = sprintf "http://ext.nicovideo.jp/api/getthumbinfo/%s", $self->id;
 	
-	my $ua = Furl->new( timeout => 10 );
+	my $ua = Furl->new( timeout => $timeout );
 	$ua->env_proxy;
 	my $res = $ua->get( $info_url  );
 	
