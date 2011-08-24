@@ -139,12 +139,16 @@ my $logger = sub {
 	$fh->close;
 };
 
+use Log::Dispatch::Config;
+Log::Dispatch::Config->configure( file( $config->{project_base}, "var", "log_web.conf" )->stringify );
+
 builder {
 	enable 'AccessLog', format => 'combined', logger => $logger;
 	enable 'ContentLength';
 	enable 'HTTPExceptions';
 	enable 'Head';
 	enable 'Runtime';
+	enable 'LogDispatch', logger => Log::Dispatch::Config->instance;
 	enable_if { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }
 		'ReverseProxy';
 	enable 'Static', path => qw{^/(?:favicon\.(ico|png)|robots\.txt)$}, root => dir( $config->{project_base}, "htdocs" );

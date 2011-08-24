@@ -24,6 +24,7 @@ Furl
 HTTP::Date
 Imager 0.80
 Imager::DTP
+Log::Dispatch::Config
 LWP
 namespace::autoclean
 Text::Xslate 1.0000

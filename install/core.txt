@@ -11,6 +11,7 @@ service/run
 
 # var
 var/config.yml.dist
+var/log_web.conf.dist
 var/ipaexg.ttf
 var/index.html
 

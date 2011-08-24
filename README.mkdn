@@ -41,9 +41,16 @@ and Perl modules (C compiler required):
     > sudo cpan Path::Class
     > sudo perl ./setup/install_module.pl
 
+Prepare the project dir:
+    > mkdir -p /project/niconail
+    > make install
+    > cd /project/niconail/var
+    > cp config.yml.dist config.yml
+    > cp log_web.conf.dist log_web.conf
+
 also retreive & place IPAex font file:
 
-    > cd ./var/
+    > cd /project/niconail/var/
     > wget http://ossipedia.ipa.go.jp/ipafont/ipaexg00102.php
     > unzip ipaexg00102.zip
     > mv ipaexg00102/ipaexg00102/ipaexg.ttf .
