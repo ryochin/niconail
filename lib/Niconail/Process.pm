@@ -21,6 +21,11 @@ use utf8;
 
 my $timeout = 10;    # sec
 
+has 'req' => (
+	is => 'rw',
+	isa => 'Plack::Request',
+);
+
 has 'config' => (
 	is => 'rw',
 	isa => 'HashRef',
@@ -149,6 +154,8 @@ extends 'Class::ErrorHandler';
 sub create_thumbnail {
 	my $self = shift;
 	
+	$self->logit( debug => "[new creation: %d] %s", $$, '-' x 32 );
+	
 	# 背景を塗っておく
 	$self->base->box( color => 'white', filled => 1 );
 	$self->base->read( file => $self->base_image, bits => 8 );
@@ -239,6 +246,7 @@ sub set_image {
 		
 		if( ! $content ){
 			$self->image_cv->send;
+			$self->logit( debug => "set_image: content is empty." );
 			return $self->error("FAILED_TO_RETRIEVE");
 		}
 		
@@ -258,7 +266,8 @@ sub set_image {
 		}
 		else{
 			$self->image_cv->send;
-			$self->error("FAILED_TO_RETRIEVE");
+			$self->logit( debug => "set_image: cannot create imager object." );
+			return $self->error("FAILED_TO_RETRIEVE");
 		}
 		
 		$self->image_cv->send;
@@ -675,6 +684,7 @@ sub set_video_info {
 		}
 	}
 	else{
+		$self->logit( debug => "set_video_info: failed to access to api." );
 		return $self->error("FAILED_TO_RETRIEVE");
 	}
 	
@@ -759,6 +769,31 @@ sub unescape_html {
 		$_
 		}gex;
 	return $string;
+}
+
+sub logit {
+	my $self = shift;
+
+	my ($level, $msg) = $self->prepare_logit( @_ );
+
+	return $self->req->logger->( { level => $level, message => $msg } );
+}
+
+sub prepare_logit {
+	my $self = shift;
+
+	my ($level, $template, @args) = scalar @_ <= 1
+		? ( debug => shift, ())
+		: (@_);
+
+	no warnings "uninitialized";
+
+	$template = "(something's happened.)"    # '
+		if $template eq '';
+	my $msg = sprintf "[%d] $template", $$, @args;
+	$msg =~ s/[\s\n]+$//o;
+
+	return ($level, $msg);
 }
 
 __PACKAGE__->meta->make_immutable;

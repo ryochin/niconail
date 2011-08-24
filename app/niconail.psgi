@@ -54,6 +54,7 @@ my $app = sub {
 	
 	# キャッシュになければ作成を試みる
 	my $nico = Niconail::Process->new;
+	$nico->req( $req );
 	$nico->config( $config );
 	$nico->base_image( file( $var_dir, "frame_base.png" ) );
 	$nico->font_file_normal( $font_file_normal );
