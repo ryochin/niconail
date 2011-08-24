@@ -15,7 +15,7 @@ use DateTime::Format::W3CDTF;
 use XML::Twig;
 
 use AnyEvent::HTTP;
-use LWP::UserAgent;
+use Furl;
 
 use utf8;
 
@@ -616,8 +616,7 @@ sub set_video_info {
 	
 	my $info_url = sprintf "http://ext.nicovideo.jp/api/getthumbinfo/%s", $self->id;
 	
-	my $ua = LWP::UserAgent->new;
-	$ua->timeout( 5 );
+	my $ua = Furl->new( timeout => 10 );
 	$ua->env_proxy;
 	my $res = $ua->get( $info_url  );
 	
@@ -658,7 +657,7 @@ sub set_video_info {
 		
 		# parse
 		my $twig = XML::Twig->new( TwigHandlers => $handler );
-		eval { $twig->parse( $res->decoded_content ); 1 }
+		eval { $twig->parse( $res->content ); 1 }
 			or return;
 		
 		if( defined $info->{title} and $info->{title} ne '' ){

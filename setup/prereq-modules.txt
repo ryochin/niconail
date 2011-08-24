@@ -20,6 +20,7 @@ Cache::Memcached::Fast
 Class::ErrorHandler
 DateTime
 DateTime::Format::W3CDTF
+Furl
 HTTP::Date
 Imager 0.80
 Imager::DTP
