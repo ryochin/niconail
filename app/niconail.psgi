@@ -21,7 +21,7 @@ use Encode ();
 
 my $config = YAML::LoadFile("/project/niconail/var/config.yml") or die $!;
 
-my $cache_expire = 6 * 60 ** 2;    # 6 hrs
+my $cache_expire = 3 * 60 ** 2;    # 3 hrs
 my $http_expire = int( $cache_expire / 2 );
 
 my $var_dir = dir( $config->{project_base}, "var" );
