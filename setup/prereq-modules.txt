@@ -18,6 +18,8 @@ Any::Moose
 AnyEvent
 AnyEvent::HTTP
 Cache::Memcached::Fast
+CHI
+CHI::Driver::Memcached
 Class::ErrorHandler
 DateTime
 DateTime::Format::W3CDTF

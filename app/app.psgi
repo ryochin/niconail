@@ -9,10 +9,11 @@ use Plack::Builder;
 
 use IO::File;
 use Fcntl qw(:flock);use Path::Class qw(dir file);
-use Cache::Memcached::Fast;
 use HTTP::Date;
 use Text::Xslate;
 use YAML;
+use CHI;
+use CHI::Driver::Memcached;
 
 use Niconail::Process;
 
@@ -27,6 +28,8 @@ my $http_expire = int( $cache_expire / 2 );
 my $var_dir = dir( $config->{project_base}, "var" );
 my $font_file_normal = file( $var_dir, $config->{font_filename} );
 my $font_file_bold = $font_file_normal;
+
+my $cache = CHI->new( driver => 'Memcached::Fast', servers => [ $config->{memcached_server} ] );
 
 my $app = sub {
 	my $env = shift;
@@ -44,10 +47,9 @@ my $app = sub {
 	}
 	
 	my $key = sprintf "nn:%s", $id;
-	my $memd = Cache::Memcached::Fast->new( { servers => [ $config->{memcached_server} ] } );
 	
 	# キャッシュにあるかどうか探す
-	if( ! $ignore_cache and my $content = $memd->get( $key ) ){
+	if( ! $ignore_cache and my $content = $cache->get( $key ) ){
 		# あれば返す
 		return prepare_response( $content );
 	}
@@ -82,7 +84,9 @@ my $app = sub {
 	}
 	
 	# メモリに入れる
-	$memd->set( $key, $content, $failed ? 10 * 60 : $cache_expire );
+	if( ! $ignore_cache ){
+		$cache->set( $key, $content, $failed ? "5 min" : $cache_expire );
+	}
 	
 	# 返す
 	return prepare_response( $content );
