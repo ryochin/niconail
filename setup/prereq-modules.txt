@@ -10,6 +10,7 @@ Plack::Middleware::ReverseProxy
 Plack::Middleware::Expires
 HTTP::Exception
 Starman
+Starlet
 
 ### Application
 

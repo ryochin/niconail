@@ -4,7 +4,7 @@
 PROJECT_HOME=/project/niconail
 HOST=0
 PORT=8450
-WORKER=10
+WORKER=5
 
 RUN_USER=ryo
 RUN_GROUP=www
@@ -13,7 +13,7 @@ exec \
 env - \
     /bin/nice -5 \
     /usr/local/bin/setuidgid ${RUN_USER} \
-    /usr/local/bin/starman \
+    /usr/local/bin/plackup -s Starlet \
 	--listen ${HOST}:${PORT} \
 	--workers ${WORKER} \
 	--max-requests 200 \
