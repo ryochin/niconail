@@ -7,7 +7,7 @@ About
 This is a one of Niconail.info service clone, NicoNicoDouga
 Video Thumbnail Image Generator.
 
-Now the site [http://niconail.in/](http://niconail.in/) is running.
+Now the site <http://niconail.in/> is running.
 
 Requirement
 -----------
@@ -21,7 +21,7 @@ Requirement
  * DateTime
  * etc.
 * C compiler
-* Memcached (or alternatives)
+* Memcached (optional but required on default)
 * libpng library
 * freetype2 library
 * ImageMagick with Perl bridge (optional)
@@ -42,6 +42,7 @@ and Perl modules (C compiler required):
     > sudo perl ./setup/install_module.pl
 
 Prepare the project dir:
+
     > mkdir -p /project/niconail
     > make install
     > cd /project/niconail/var
@@ -61,7 +62,7 @@ then run the server:
 
 Browse it:
 
-> http://localhost:8450/
+    http://localhost:8450/
 
 The default installation directory is "/project/niconail".
 Install all files:
@@ -82,7 +83,7 @@ TODO
 Auther
 ------
 
-Ryo Okamoto a.k.a. @ryochin
+Ryo Okamoto a.k.a. [@ryochin](http://twitter.com/ryochin)
 
 License
 -------
