@@ -20,6 +20,6 @@ env - \
 	--user ${RUN_USER} \
 	--group ${RUN_GROUP} \
 	-I${PROJECT_HOME}/lib \
-	${PROJECT_HOME}/app/niconail.psgi \
+	${PROJECT_HOME}/app/app.psgi \
 2>&1
 

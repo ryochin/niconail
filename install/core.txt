@@ -26,7 +26,7 @@ htdocs/robots.txt
 htdocs/favicon.ico
 
 # app
-app/niconail.psgi
+app/app.psgi
 
 # lib - base
 lib/Niconail/Process.pm

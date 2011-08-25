@@ -1,4 +1,4 @@
 #!/bin/sh
 
-PLACK_SERVER=Standalone plackup -R lib --port 8450 ./app/niconail.psgi
+PLACK_SERVER=Standalone plackup -R lib --port 8450 ./app/app.psgi
 
