@@ -3,11 +3,6 @@
 <head>
 <link rev="made" href="mailto:info&#64;fumi2.jp" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<meta http-equiv="Content-Language" content="ja" />
-<meta http-equiv="Content-Style-Type" content="text/css" />
-<meta http-equiv="Content-Script-Type" content="text/javascript" />
-<meta name="keywords" content="" />
-<meta name="description" content="" />
 <title>Niconail Clone</title>
 <style type="text/css">
 /* <![CDATA[ */ 
@@ -23,40 +18,8 @@ h1 {
 	font-size: 148%;
 }
 
-input {
-	margin: 4px;
-	padding: 4px;
-}
-
-input.id {
-	background: #eeeeff;
-}
-
-input.result {
-	background: #eeeeee;
-}
-
 p {
 	margin: 1em;
-}
-
-p.webmoney {
-	margin-left: 3em;
-}
-
-img {
-	border: 0;
-}
-
-ul {
-	margin: 8px 2px;
-}
-
-li {
-	color: #666;
-}
-li strong {
-	color: #aa6666;
 }
 
 /* ]]> */
@@ -69,55 +32,9 @@ li strong {
 	
 	<h1>Niconail クローン</h1>
 	
-	<form action="/" method="post">
-	
 	<p>
-		&nbsp; アドレスまたは動画番号： <br />
-		<input type="text" name="id" value="[% id %]" size="48" class="id" />
-		<input type="submit" value="　見る！　" />
+		サービスは終了しました、ありがとうございました。 [<a href="https://github.com/ryochin/niconail/">ソース</a>]
 	</p>
-	
-	</form>
-	
-	<hr />
-	
-[%- IF id %]
-	
-	<p>
-		<a href="http://www.nicovideo.jp/watch/[% id %]" target="_blank">
-			<img src="/[% id %]" title="[% id %]" />
-		</a>
-	</p>
-	
-	<p>
-		<input type="text" value="&lt;img src=&quot;http://[% config.server_domain %]/[% id %]&quot; alt=&quot;ニコニコ動画のサムネイル画像&quot; /&gt;" class="result" size="80" />
-	</p>
-	
-	<hr />
-	
-[%- END %]
-	
-	<ul>
-		<li>今は無き niconail.info のオレオレクローンです。</li>
-		<li>ただいま<strong>試験運用中</strong>です。一般公開して<u>本格運用するかどうかはまだ検討中</u>です。</li>
-		<li>表示のされかたなどはたぶんちょこちょこ修正します（サイズは変わりません）。</li>
-		<li>負荷対策のため、一度作成した画像の内容は数時間は変更されません（＝キャッシュされます）。</li>
-	</ul>
-	
-	<ul>
-		<li>まだ未調整の部分があって、初回の画像生成の処理は重め（＝遅い）です。あと環境が非力。</li>
-		<li>負荷分散ミラーサーバを運用したいという方をお待ちしています。</li>
-		<li>連絡は &#64;ryochin までどうぞ。</li>
-	</ul>
-	
-[%- MACRO webmoney BLOCK %]
-	<!-- 生放送の延長１回分くらいおごってあげたい太っ腹な方もお待ちしています。 -->
-	<p class="webmoney">
-		<a href="https://service.webmoney.jp/wtw/3802780" target="_blank">
-			<img src="https://www.webmoney.jp/kanpa/btn_kanpa_H3.gif" alt="WebMoney ぷちカンパ" />
-		</a>
-	</p>
-[%- END %]
 </div>
 
 </body>

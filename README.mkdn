@@ -4,26 +4,30 @@ Niconail Clone
 About
 -----
 
-This is a one of Niconail.info service clone, NicoNicoDouga
+This is one of the old Niconail.info clone, NicoNicoDouga
 Video Thumbnail Image Generator.
 
-Now the site <http://niconail.in/> is running.
+NOTE: this project has been marked as 'deprecated', thanks.
 
 Requirement
 -----------
 
-* Perl and some related modules
- * Imager
- * Plack
- * Text::Xslate
- * Any::Moose
- * AE::HTTP
- * DateTime
- * etc.
+Perl and some related modules
+
+* Imager
+* Plack
+* Text::Xslate
+* Any::Moose
+* AE::HTTP
+* DateTime
+* etc.
+
+Other stuffs
+
 * C compiler
-* Memcached (optional but required on default)
 * libpng library
 * freetype2 library
+* Memcached (optional but required on default)
 * ImageMagick with Perl bridge (optional)
 
 Install
